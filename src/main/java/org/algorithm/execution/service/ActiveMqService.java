@@ -1,12 +1,11 @@
-package com.example.demo.service;
+package org.algorithm.execution.service;
 
 
 
 import javax.jms.Queue;
 
+import org.algorithm.execution.pojo.Stats;
 import org.springframework.jms.core.JmsTemplate;
-
-import com.example.demo.pojo.Stats;
 
 import lombok.RequiredArgsConstructor;
 

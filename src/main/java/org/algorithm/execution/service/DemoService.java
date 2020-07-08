@@ -1,11 +1,10 @@
-package com.example.demo.service;
+package org.algorithm.execution.service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import org.springframework.jms.core.JmsTemplate;
+import org.algorithm.execution.pojo.Stats;
 
-import com.example.demo.pojo.Stats;
 import com.google.common.collect.Lists;
 
 public class DemoService {

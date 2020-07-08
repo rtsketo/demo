@@ -1,10 +1,12 @@
-package com.example.demo.configuration;
+package org.algorithm.execution.configuration;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.jms.*;
+import javax.jms.ConnectionFactory;
+import javax.jms.Queue;
 
+import org.algorithm.execution.pojo.Stats;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
@@ -14,18 +16,15 @@ import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
-import org.springframework.jms.support.converter.MessageConversionException;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
 
-import com.example.demo.pojo.Stats;
-import com.example.demo.service.ActiveMqService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.algorithm.execution.service.ActiveMqService;
+import org.algorithm.execution.service.AlgorithmService;
 
 @Configuration
 @EnableJms
-public class DemoConfiguration {
+public class AlgorithmConfiguration {
 
 	@Bean
 	public JmsListenerContainerFactory<?> myFactory(ConnectionFactory connectionFactory,
@@ -40,37 +39,7 @@ public class DemoConfiguration {
 
 	@Bean // Serialize message content to json using TextMessage
 	public MessageConverter jacksonJmsMessageConverter() {
-//		MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
-//		converter.setTargetType(MessageType.TEXT);
-//		converter.setTypeIdPropertyName("_type");
-//		return converter;
-//
-//		return new MessageConverter() {
-//
-//			@Override public Message toMessage(Object object, Session session) throws JMSException, MessageConversionException {
-//				ObjectMapper objectMapper = new ObjectMapper();
-//				try {
-//					String value =objectMapper.writeValueAsString(object);
-//					Message message = new Me
-//					return
-//				} catch (JsonProcessingException e) {
-//					e.printStackTrace();
-//				}
-//				return "";
-//			}
-//
-//			@Override public Object fromMessage(Message message) throws JMSException, MessageConversionException {
-//
-//				ObjectMapper objectMapper = new ObjectMapper();
-//				try {
-//					return objectMapper.readValue(message.getBody(String.class), Stats.class);
-//				} catch (JsonProcessingException e) {
-//					e.printStackTrace();
-//				}
-//				return "";
-//			}
-//		};
-
+		//TODO check conversion with objectMapper -> JsonMessageConverter
 		MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
 
 		Map<String, Class<?>> typeIdMappings = new HashMap<String, Class<?>>();
@@ -84,12 +53,17 @@ public class DemoConfiguration {
 	}
 
 	@Bean
-	public ActiveMqService activeMqService(JmsTemplate jmsTemplate){
-		return new ActiveMqService(jmsTemplate,queue());
+	public ActiveMqService activeMqService(JmsTemplate jmsTemplate) {
+		return new ActiveMqService(jmsTemplate, queue());
 	}
 
 	@Bean
 	public Queue queue() {
 		return new ActiveMQQueue("DemoQueue");
+	}
+
+	@Bean
+	public AlgorithmService algorithmService(JmsTemplate jmsTemplate) {
+		return new AlgorithmService(activeMqService(jmsTemplate));
 	}
 }

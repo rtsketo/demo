@@ -1,4 +1,4 @@
-package com.example.demo.util;
+package org.algorithm.execution.util;
 
 import javax.jms.JMSException;
 import javax.jms.Session;

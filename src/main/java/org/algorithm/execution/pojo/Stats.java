@@ -1,4 +1,4 @@
-package com.example.demo.pojo;
+package org.algorithm.execution.pojo;
 
 import lombok.Data;
 
