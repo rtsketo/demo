@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true">
+    <springProfile name="local">
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <Pattern>
+                    %date [%thread] %-5level %logger{36} - [%mdc{correlationId}] %msg %n
+                </Pattern>
+            </layout>
+        </appender>
+        <appender name="LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>/home/katerina/Work/ELK/logs/demo.log</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>demo.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <maxHistory>7</maxHistory>
+            </rollingPolicy>
+            <encoder>
+                <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <appender name="STASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+            <destination>localhost:5000</destination>
+            <!-- encoder is required -->
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+
+            <keepAliveDuration>5 minutes</keepAliveDuration>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="STASH" />
+            <appender-ref ref="LOG_FILE" />
+            <appender-ref ref="STDOUT" />
+        </root>
+    </springProfile>
+</configuration>

@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import com.example.demo.pojo.Stats;
 import com.example.demo.service.ActiveMqService;
 import com.example.demo.service.DemoService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 public class DemoController {
 
@@ -38,7 +42,10 @@ public class DemoController {
 
 	@GetMapping("/activeMQ")
 	public String activeMQ(@RequestParam(value = "message", defaultValue = "hello") String message) {
-		activeMqService.sendMessage(new Stats(1,"demo", "1", 0));
+		log.info("Sending to ActiveMQ message: " + message);
+		UUID uuid = UUID.randomUUID();
+
+		activeMqService.sendMessage(new Stats(uuid.toString(), "demo", "1", 0));
 		return "Message Sent";
 	}
 }
