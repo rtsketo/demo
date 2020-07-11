@@ -232,26 +232,26 @@ public class AlgorithmStrategies {
 		return sums;
 	}
 
-	public static void main(String[] args) {
-		System.out.println(numberOfPaths(3, 3));
-
-		System.out.println(computeNumOfPaths("3"));
-		int[] nums = { 3, 3 };
-		//Stream.of(twoSum(nums, 9)).forEach(x-> System.out.println(x));
-		Arrays.stream(twoSumsBrute(nums, 6)).forEach(x -> System.out.println(x));
-		Arrays.stream(twoSums(nums, 6)).forEach(x -> System.out.println(x));
-
-		ListNode add1 = new ListNode(2);
-		add1.next = new ListNode(4);
-		add1.next.next = new ListNode(3);
-
-		ListNode add2 = new ListNode(5);
-		add2.next = new ListNode(6);
-		add2.next.next = new ListNode(4);
-
-		ListNode listNode = addTwoLists(add1, add2);
-		System.out.println(listNode);
-	}
+//	public static void main(String[] args) {
+//		System.out.println(numberOfPaths(3, 3));
+//
+//		System.out.println(computeNumOfPaths("3"));
+//		int[] nums = { 3, 3 };
+//		//Stream.of(twoSum(nums, 9)).forEach(x-> System.out.println(x));
+//		Arrays.stream(twoSumsBrute(nums, 6)).forEach(x -> System.out.println(x));
+//		Arrays.stream(twoSums(nums, 6)).forEach(x -> System.out.println(x));
+//
+//		ListNode add1 = new ListNode(2);
+//		add1.next = new ListNode(4);
+//		add1.next.next = new ListNode(3);
+//
+//		ListNode add2 = new ListNode(5);
+//		add2.next = new ListNode(6);
+//		add2.next.next = new ListNode(4);
+//
+//		ListNode listNode = addTwoLists(add1, add2);
+//		System.out.println(listNode);
+//	}
 
 	public static ListNode addTwoLists(ListNode l1, ListNode l2) {
 		if (l1 == null || l2 == null) {
