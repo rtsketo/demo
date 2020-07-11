@@ -6,7 +6,8 @@ import java.util.function.BiFunction;
 public enum AlgorithmType {
 
 	FIBONACCI(AlgorithmStrategies::fibonacci),
-	PERMUTATIONS(AlgorithmStrategies::permutations);
+	PERMUTATIONS(AlgorithmStrategies::permutations),
+	SUM(AlgorithmStrategies::sum);
 
 	AlgorithmType(BiFunction<String, Boolean, List<String>> function) {
 		this.function = function;
@@ -14,7 +15,7 @@ public enum AlgorithmType {
 
 	BiFunction<String, Boolean, List<String>> function;
 
-	public List<String> runAlgorithm(String number, Boolean recursion) {
+	public List<String> runAlgorithm(String number, boolean recursion) {
 		return function.apply(number, recursion);
 	}
 }

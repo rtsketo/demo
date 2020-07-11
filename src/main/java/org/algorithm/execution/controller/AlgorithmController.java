@@ -43,6 +43,15 @@ public class AlgorithmController {
 		return "The fibonacci of " + number + " is " + fibs;
 	}
 
+	@GetMapping("/algorithm")
+	public String algorithm(@RequestParam(value = "algorithmName", defaultValue = "") String algorithmName,
+			@RequestParam(value = "input", defaultValue = "") String input,
+			@RequestParam(value = "recursion", defaultValue = "false") boolean recursion) {
+		List<String> fibs = algorithmService.runAlgorithmAndSendStats(algorithmName, input, recursion);
+		//DemoService.fibonacci(number, recursion, activeMqService);
+		return "The " + algorithmName + " of " + input + " is " + fibs;
+	}
+
 	@GetMapping("/activeMQ")
 	public String activeMQ(@RequestParam(value = "message", defaultValue = "hello") String message) {
 		log.info("Sending to ActiveMQ message: " + message);
