@@ -117,11 +117,16 @@ public class AlgorithmStrategies {
 		}
 	}
 
+	/**
+	 * Takes a number as input and runs the sum from 0..number, recursively or with a for loop
+	 * @param number
+	 * @param recursion
+	 * @return
+	 */
 	public static List<String> sum(String number, boolean recursion) {
 		int num = Integer.parseInt(number);//positive and >0
 		if (recursion) {
-
-			return Collections.emptyList();
+			return List.of(String.valueOf(sum(num)));
 		} else {
 			int res = 0;
 			for (int i = 0; i <= num; i++) {
@@ -131,7 +136,7 @@ public class AlgorithmStrategies {
 		}
 	}
 
-	private int sum(int num) {
+	private static int sum(int num) {
 		if (num == 0) {
 			return 0;
 		} else {

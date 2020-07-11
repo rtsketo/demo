@@ -1,16 +1,16 @@
 package org.algorithm.execution.controller;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import org.algorithm.execution.pojo.Stats;
 import org.algorithm.execution.service.ActiveMqService;
 import org.algorithm.execution.service.AlgorithmService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,11 +23,6 @@ public class AlgorithmController {
 
 	@Autowired
 	private AlgorithmService algorithmService;
-
-	@GetMapping("/greeting")
-	public String greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-		return "Hello " + name + "!";
-	}
 
 	@GetMapping("/permutations")
 	public String permutations(@RequestParam(value = "word", defaultValue = "abc") String word) {
@@ -57,7 +52,13 @@ public class AlgorithmController {
 		log.info("Sending to ActiveMQ message: " + message);
 		UUID uuid = UUID.randomUUID();
 
-		activeMqService.sendMessage(new Stats(uuid.toString(), "demo", "1", 0));
+		activeMqService.sendMessage(new Stats(uuid.toString(), "demo", "1", 0,"-", Collections.emptyList()));
 		return "Message Sent";
+	}
+
+	@GetMapping("/algorithms")
+	public String algorithms()  {
+
+		return "Currently supported algorithms: "+ algorithmService.getAlgorithms();
 	}
 }

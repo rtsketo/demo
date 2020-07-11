@@ -84,7 +84,7 @@ public class DemoService {
 
 	private static Stats calculateStats(long start, long end, String algorithmName, String type) {
 		UUID uuid = UUID.randomUUID();
-		return new Stats(uuid.toString(), algorithmName, type, end - start);
+		return new Stats(uuid.toString(), algorithmName, type, end - start,"-",Collections.emptyList());
 	}
 
 	private static int fibRecursion(int n, int[] fibs) {
