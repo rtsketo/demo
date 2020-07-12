@@ -1,17 +1,16 @@
 package org.algorithm.execution.service;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.algorithm.execution.pojo.Stats;
+import org.apache.commons.lang3.EnumUtils;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import org.algorithm.execution.pojo.Stats;
-import org.apache.commons.lang3.EnumUtils;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -30,7 +29,7 @@ public class AlgorithmService {
 	public List<String> runAlgorithmAndSendStats(String algorithmName, String input, boolean recursion) {
 
 		if (Objects.isNull(EnumUtils.getEnum(AlgorithmType.class,algorithmName.toUpperCase()))) {
-			return List.of("Algorithm could not be found. Avalable Algorithms are: "+getAlgorithms());
+			return List.of("Algorithm could not be found. Available Algorithms are: "+getAlgorithms());
 		}
 
 		long start = System.currentTimeMillis();

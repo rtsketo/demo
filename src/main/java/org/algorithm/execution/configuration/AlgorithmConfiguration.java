@@ -1,11 +1,5 @@
 package org.algorithm.execution.configuration;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.Executors;
-
-import javax.jms.Queue;
-
 import org.algorithm.execution.pojo.Stats;
 import org.algorithm.execution.service.ActiveMqService;
 import org.algorithm.execution.service.AlgorithmService;
@@ -17,6 +11,11 @@ import org.springframework.jms.support.converter.MappingJackson2MessageConverter
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
 
+import javax.jms.Queue;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.Executors;
+
 @Configuration
 public class AlgorithmConfiguration {
 
@@ -25,7 +24,7 @@ public class AlgorithmConfiguration {
 		//TODO check conversion with objectMapper -> JsonMessageConverter
 		MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
 
-		Map<String, Class<?>> typeIdMappings = new HashMap<String, Class<?>>();
+		Map<String, Class<?>> typeIdMappings = new HashMap<>();
 		typeIdMappings.put("JMS_TYPE", Stats.class);
 
 		converter.setTypeIdMappings(typeIdMappings);
